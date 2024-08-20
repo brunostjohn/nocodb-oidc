@@ -30,6 +30,7 @@ export class OIDCStrategy extends PassportStrategy(Strategy, 'oidc') {
       accessToken,
       (err, body) => {
         if (err) {
+          console.error('Failed to fetch user profile', err);
           return done(
             new Error(`Failed to fetch user profile: ${err.statusCode}`),
           );
@@ -39,6 +40,7 @@ export class OIDCStrategy extends PassportStrategy(Strategy, 'oidc') {
           const json = JSON.parse(body.toString());
           done(null, json);
         } catch (e) {
+          console.error('Failed to parse user profile', e);
           done(e);
         }
       },
@@ -84,6 +86,7 @@ export class OIDCStrategy extends PassportStrategy(Strategy, 'oidc') {
         return done(null, sanitiseUserObj(user));
       }
     } catch (err) {
+      console.error('Failed to validate user', err);
       return done(err);
     }
   }
