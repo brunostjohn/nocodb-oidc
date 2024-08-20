@@ -171,6 +171,7 @@ export enum CacheScope {
   MODEL_ROLE_VISIBILITY = 'modelRoleVisibility',
   API_TOKEN = 'apiToken',
   INSTANCE_META = 'instanceMeta',
+  LOGIN = 'login',
   USER_BASE = 'userBase',
   DASHBOARD_PROJECT_DB_PROJECT_LINKING = 'dashboardProjectDBProjectLinking',
   SINGLE_QUERY = 'singleQuery',
