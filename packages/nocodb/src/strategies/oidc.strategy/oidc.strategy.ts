@@ -1,10 +1,10 @@
 import { promisify } from 'util';
 import { Injectable, Optional } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, StrategyOptions } from 'passport-openidconnect';
+import { Strategy, StrategyOptions } from 'passport-oauth2';
 import bcrypt from 'bcryptjs';
 import type { Request } from 'express';
-import type { VerifyCallback } from 'passport-openidconnect';
+import type { VerifyCallback } from 'passport-oauth2';
 import type { FactoryProvider } from '@nestjs/common/interfaces/modules/provider.interface';
 import type { NcRequest } from '~/interface/config';
 import Noco from '~/Noco';
@@ -105,7 +105,7 @@ export const OIDCStrategyProvider: FactoryProvider = {
       callbackURL: `${
         process.env.NC_OIDC_CALLBACK_HOST ?? 'http://localhost:8080'
       }/dahsboard`,
-      passReqToCallback: true,
+      passReqToCallback: true as false,
       scope: ['profile', 'email'],
     };
 
