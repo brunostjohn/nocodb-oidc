@@ -21,6 +21,30 @@ export class OIDCStrategy extends PassportStrategy(Strategy, 'oidc') {
     super(clientConfig);
   }
 
+  userProfile(
+    accessToken: string,
+    done: (err?: Error | null, profile?: any) => void,
+  ): void {
+    this._oauth2.get(
+      process.env.NC_OIDC_USERINFO_URL ?? '',
+      accessToken,
+      (err, body) => {
+        if (err) {
+          return done(
+            new Error(`Failed to fetch user profile: ${err.statusCode}`),
+          );
+        }
+
+        try {
+          const json = JSON.parse(body.toString());
+          done(null, json);
+        } catch (e) {
+          done(e);
+        }
+      },
+    );
+  }
+
   async validate(
     req: NcRequest,
     accessToken: string,
@@ -29,7 +53,7 @@ export class OIDCStrategy extends PassportStrategy(Strategy, 'oidc') {
     done: VerifyCallback,
   ): Promise<any> {
     // mostly copied from older code
-    const email = profile.emails[0].value;
+    const email = profile.email;
     try {
       const user = await User.getByEmail(email);
       if (user) {
@@ -52,7 +76,7 @@ export class OIDCStrategy extends PassportStrategy(Strategy, 'oidc') {
         const salt = await promisify(bcrypt.genSalt)(10);
         const user = await this.usersService.registerNewUserIfAllowed({
           email_verification_token: null,
-          email: profile.emails[0].value,
+          email: profile.email,
           password: '',
           salt,
           req,
