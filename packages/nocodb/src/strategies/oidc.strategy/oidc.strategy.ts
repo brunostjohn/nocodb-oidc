@@ -81,7 +81,7 @@ export class OIDCStrategy extends PassportStrategy(Strategy, 'oidc') {
       clientSecret: process.env.NC_OIDC_CLIENT_SECRET ?? '',
       callbackURL: req.ncSiteUrl + Noco.getConfig().dashboardPath,
       passReqToCallback: true,
-      scope: ['openid', 'profile', 'email'],
+      scope: ['openid', 'profile', 'email', 'offline_access'],
       state: req.query.state,
     });
   }
@@ -94,19 +94,17 @@ export const OIDCStrategyProvider: FactoryProvider = {
     // read client id and secret from env variables
     // if not found provide dummy values to avoid error
     // it will be handled in authenticate method ( reading from plugin )
-    const clientConfig = {
+    const clientConfig: StrategyOptions = {
       clientID: process.env.NC_OIDC_CLIENT_ID ?? 'dummy-id',
-      issuer: process.env.NC_OIDC_ISSUER ?? '',
       tokenURL: process.env.NC_OIDC_TOKEN_URL ?? '',
       authorizationURL: process.env.NC_OIDC_AUTH_URL ?? '',
-      userInfoURL: process.env.NC_OIDC_USER_INFO_URL ?? '',
       clientSecret: process.env.NC_OIDC_CLIENT_SECRET ?? 'dummy-secret',
       // todo: update url
       callbackURL: `${
         process.env.NC_OIDC_CALLBACK_HOST ?? 'http://localhost:8080'
       }/dahsboard`,
       passReqToCallback: true as false,
-      scope: ['profile', 'email'],
+      scope: ['openid', 'profile', 'email', 'offline_access'],
     };
 
     return new OIDCStrategy(clientConfig, usersService);
