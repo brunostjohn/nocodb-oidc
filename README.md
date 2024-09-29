@@ -4,15 +4,15 @@ I've reimplemented OIDC here because [paywalling a basic security feature is ins
 
 ## Environment variables required to configure OIDC.
 
-- `NC_OIDC_CLIENT_ID` - Client ID
-- `NC_OIDC_CLIENT_SECRET` - Client Secret
+- `NC_OIDC_CLIENT_ID` - Client ID.
+- `NC_OIDC_CLIENT_SECRET` - Client Secret.
 - `NC_PUBLIC_URL` - Must match the public URL of your instance.
 - `NC_OIDC_CALLBACK_HOST` - Must match the public URL of your instance.
 - `NC_OIDC_PROVIDER_NAME` - This will be shown on the sign-in button. Optional.
 - `NC_OIDC_ISSUER` - Your issuer URL. When using Authentik, for example, it'll be `https://authentik.domain/application/o/nocodb/`.
 - `NC_OIDC_TOKEN_URL` - Your token URL. When using Authentik, for example, it'll be `https://authentik.domain/application/o/token/`.
 - `NC_OIDC_AUTH_URL` - Your authorize URL. When using Authentik, for example, it'll be `https://authentik.domain/application/o/authorize/`.
-- `NC_OIDC_USERINFO_URL` - Your userinfo URL. WHen using Authentik, for example, it'll be `https://authentik.domain/application/o/userinfo/`.
+- `NC_OIDC_USERINFO_URL` - Your userinfo URL. When using Authentik, for example, it'll be `https://authentik.domain/application/o/userinfo/`.
 - `NC_SSO` - Must be set to `OIDC`.
 - `NC_DISABLE_EMAIL_AUTH` - If you want to disable authenticating using an e-mail/password combo and only allow SSO, set this to `true`.
 - `NC_ADMIN_EMAIL` - Use this to inform NocoDB of who is the superadmin of the instance. Otherwise, you'll have to register an e-mail/password account on startup.
