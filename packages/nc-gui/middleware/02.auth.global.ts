@@ -47,7 +47,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   }
 
   /** if user isn't signed in and google auth is enabled, try to check if sign-in data is present */
-  if (!state.signedIn.value && state.appInfo.value.googleAuthEnabled) {
+  if (!state.signedIn.value && (state.appInfo.value.googleAuthEnabled || state.appInfo.value.oidcAuthEnabled)) {
     await tryGoogleAuth(api, state.signIn)
   }
 
@@ -129,11 +129,11 @@ async function tryGoogleAuth(api: Api<any>, signIn: Actions['signIn']) {
   if (window.location.search && /\bscope=|\bstate=/.test(window.location.search) && /\bcode=/.test(window.location.search)) {
     let extraProps: any = {}
     try {
-      let authProvider = 'google'
+      let authProvider = 'oidc'
       if (window.location.search.includes('state=github')) {
         authProvider = 'github'
-      } else if (window.location.search.includes('state=oidc')) {
-        authProvider = 'oidc'
+      } else if (window.location.search.includes('state=google')) {
+        authProvider = 'google'
       }
 
       // `extra` prop is used in our cloud implementation, so we are keeping it

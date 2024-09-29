@@ -102,15 +102,20 @@ export class OIDCStrategy extends PassportStrategy(Strategy, 'oidc') {
   }
 
   async authenticate(req: Request, options?: any): Promise<void> {
-    return super.authenticate(req, {
-      ...options,
-      clientID: process.env.NC_OIDC_CLIENT_ID ?? '',
-      clientSecret: process.env.NC_OIDC_CLIENT_SECRET ?? '',
-      callbackURL: req.ncSiteUrl + Noco.getConfig().dashboardPath,
-      passReqToCallback: true,
-      scope: ['openid', 'profile', 'email', 'offline_access'],
-      state: req.query.state,
-    });
+    try {
+      return super.authenticate(req, {
+        ...options,
+        clientID: process.env.NC_OIDC_CLIENT_ID ?? '',
+        clientSecret: process.env.NC_OIDC_CLIENT_SECRET ?? '',
+        callbackURL: req.ncSiteUrl + Noco.getConfig().dashboardPath,
+        passReqToCallback: true,
+        scope: ['openid', 'profile', 'email', 'offline_access'],
+        state: 'oidc',
+      });
+    } catch (e) {
+      console.error('Failed to authenticate', e);
+      throw e;
+    }
   }
 }
 
@@ -128,8 +133,8 @@ export const OIDCStrategyProvider: FactoryProvider = {
       clientSecret: process.env.NC_OIDC_CLIENT_SECRET ?? 'dummy-secret',
       // todo: update url
       callbackURL: `${
-        process.env.NC_OIDC_CALLBACK_HOST ?? 'http://localhost:8080'
-      }/dahsboard`,
+        process.env.NC_OIDC_CALLBACK_HOST ?? 'http://localhost:3000'
+      }/dashboard`,
       passReqToCallback: true as false,
       scope: ['openid', 'profile', 'email', 'offline_access'],
     };

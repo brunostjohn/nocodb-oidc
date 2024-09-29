@@ -118,7 +118,7 @@ export class AuthController {
     // google strategy will take care the request
   }
 
-  @Get('/auth/oidc/genTokenByCode')
+  @Post('/auth/oidc/genTokenByCode')
   @HttpCode(200)
   @UseGuards(PublicApiLimiterGuard, AuthGuard('oidc'))
   async oidcSignin(@Req() req: NcRequest, @Res() res: Response) {
