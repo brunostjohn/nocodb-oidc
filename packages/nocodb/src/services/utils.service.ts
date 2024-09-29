@@ -410,9 +410,6 @@ export class UtilsService {
       ? process.env.NC_OIDC_PROVIDER_NAME ?? 'OpenID Connect'
       : null;
 
-    console.log('oidcAuthEnabled: ', oidcAuthEnabled);
-    console.log('oidcProviderName: ', oidcProviderName);
-
     let giftUrl: string;
 
     if (instance.impacted >= 5) {
