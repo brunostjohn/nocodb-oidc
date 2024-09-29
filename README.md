@@ -1,3 +1,24 @@
+# About this fork
+
+I've reimplemented OIDC here because [paywalling a basic security feature is insane](https://sso.tax). I've also removed a few tidbits I found annoying. Please don't expect extensive support here, this fork is primarily for me.
+
+## Environment variables required to configure OIDC.
+
+- `NC_OIDC_CLIENT_ID` - Client ID
+- `NC_OIDC_CLIENT_SECRET` - Client Secret
+- `NC_PUBLIC_URL` - Must match the public URL of your instance.
+- `NC_OIDC_CALLBACK_HOST` - Must match the public URL of your instance.
+- `NC_OIDC_PROVIDER_NAME` - This will be shown on the sign-in button. Optional.
+- `NC_OIDC_ISSUER` - Your issuer URL. When using Authentik, for example, it'll be `https://authentik.domain/application/o/nocodb/`.
+- `NC_OIDC_TOKEN_URL` - Your token URL. When using Authentik, for example, it'll be `https://authentik.domain/application/o/token/`.
+- `NC_OIDC_AUTH_URL` - Your authorize URL. When using Authentik, for example, it'll be `https://authentik.domain/application/o/authorize/`.
+- `NC_OIDC_USERINFO_URL` - Your userinfo URL. WHen using Authentik, for example, it'll be `https://authentik.domain/application/o/userinfo/`.
+- `NC_SSO` - Must be set to `OIDC`.
+- `NC_DISABLE_EMAIL_AUTH` - If you want to disable authenticating using an e-mail/password combo and only allow SSO, set this to `true`.
+- `NC_ADMIN_EMAIL` - Use this to inform NocoDB of who is the superadmin of the instance. Otherwise, you'll have to register an e-mail/password account on startup.
+
+<hr />
+
 <h1 align="center" style="border-bottom: none">
     <div>
         <a href="https://www.nocodb.com">
@@ -82,16 +103,16 @@ nocodb/nocodb:latest
 ```
 
 ## Binaries
+
 🚥 Binaries are intended for ONLY quick trials or testing purposes and are not recommended for production use.
-  | OS      | Architecture | Command                                                                                      |
-  |---------|--------------|----------------------------------------------------------------------------------------------|
-  | macOS   | arm64        | `curl http://get.nocodb.com/macos-arm64 -o nocodb -L && chmod +x nocodb && ./nocodb`         |
-  | macOS   | x64          | `curl http://get.nocodb.com/macos-x64 -o nocodb -L && chmod +x nocodb && ./nocodb`           |
-  | Linux   | x64          | `curl http://get.nocodb.com/linux-x64 -o nocodb -L && chmod +x nocodb && ./nocodb`           |
-  | Linux   | arm64        | `curl http://get.nocodb.com/linux-arm64 -o nocodb -L && chmod +x nocodb && ./nocodb`         |
-  | Windows | x64          | `iwr http://get.nocodb.com/win-x64.exe -o Noco-win-x64.exe &&.\Noco-win-x64.exe`             |
-  | Windows | arm64        | `iwr http://get.nocodb.com/win-arm64.exe -o Noco-win-arm64.exe && .\Noco-win-arm64.exe`      |
-  
+| OS | Architecture | Command |
+|---------|--------------|----------------------------------------------------------------------------------------------|
+| macOS | arm64 | `curl http://get.nocodb.com/macos-arm64 -o nocodb -L && chmod +x nocodb && ./nocodb` |
+| macOS | x64 | `curl http://get.nocodb.com/macos-x64 -o nocodb -L && chmod +x nocodb && ./nocodb` |
+| Linux | x64 | `curl http://get.nocodb.com/linux-x64 -o nocodb -L && chmod +x nocodb && ./nocodb` |
+| Linux | arm64 | `curl http://get.nocodb.com/linux-arm64 -o nocodb -L && chmod +x nocodb && ./nocodb` |
+| Windows | x64 | `iwr http://get.nocodb.com/win-x64.exe -o Noco-win-x64.exe &&.\Noco-win-x64.exe` |
+| Windows | arm64 | `iwr http://get.nocodb.com/win-arm64.exe -o Noco-win-arm64.exe && .\Noco-win-arm64.exe` |
 
 ## Docker Compose
 
@@ -107,6 +128,7 @@ cd nocodb/docker-compose/pg
 Access Dashboard using: [http://localhost:8080/dashboard](http://localhost:8080/dashboard)
 
 # Screenshots
+
 ![2](https://github.com/nocodb/nocodb/assets/86527202/a127c05e-2121-4af2-a342-128e0e2d0291)
 ![3](https://github.com/nocodb/nocodb/assets/86527202/674da952-8a06-4848-a0e8-a7b02d5f5c88)
 ![4](https://github.com/nocodb/nocodb/assets/86527202/cbc5152a-9caf-4f77-a8f7-92a9d06d025b)
@@ -125,20 +147,20 @@ Access Dashboard using: [http://localhost:8080/dashboard](http://localhost:8080/
 # Table of Contents
 
 - [Quick try](#quick-try)
-    - [Docker](#docker)
-    - [Docker Compose](#docker-compose)
+  - [Docker](#docker)
+  - [Docker Compose](#docker-compose)
 - [GUI](#gui)
 - [Join Our Community](#join-our-community)
 - [Screenshots](#screenshots)
 - [Table of Contents](#table-of-contents)
 - [Features](#features)
-    - [Rich Spreadsheet Interface](#rich-spreadsheet-interface)
-    - [App Store for Workflow Automations](#app-store-for-workflow-automations)
-    - [Programmatic Access](#programmatic-access)
-    - [Sync Schema](#sync-schema)
-    - [Audit](#audit)
+  - [Rich Spreadsheet Interface](#rich-spreadsheet-interface)
+  - [App Store for Workflow Automations](#app-store-for-workflow-automations)
+  - [Programmatic Access](#programmatic-access)
+  - [Sync Schema](#sync-schema)
+  - [Audit](#audit)
 - [Production Setup](#production-setup)
-    - [Environment variables](#environment-variables)
+  - [Environment variables](#environment-variables)
 - [Development Setup](#development-setup)
 - [Contributing](#contributing)
 - [Why are we building this?](#why-are-we-building-this)
