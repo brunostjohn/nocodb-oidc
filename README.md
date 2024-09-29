@@ -2,6 +2,8 @@
 
 I've reimplemented OIDC here because [paywalling a basic security feature is insane](https://sso.tax). I've also removed a few tidbits I found annoying. Please don't expect extensive support here, this fork is primarily for me.
 
+The Docker image for this is tagged `ghcr.io/brunostjohn/nocodb-oidc:latest`.
+
 ## Environment variables required to configure OIDC.
 
 - `NC_OIDC_CLIENT_ID` - Client ID.
