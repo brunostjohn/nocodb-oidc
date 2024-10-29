@@ -3,9 +3,9 @@ name: 'NocoDB Nightly Dev Release'
 on:
   # Triggered manually
   workflow_dispatch:
-  schedule:
+  #schedule:
     # every 6 hours
-    - cron: '0 */6 * * *'
+    #- cron: '0 */6 * * *'
 
 jobs:
   # enrich tag for nightly auto release
